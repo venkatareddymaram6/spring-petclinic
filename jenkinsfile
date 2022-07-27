@@ -1,0 +1,17 @@
+pipeline{
+    agent { label 'JDK11-MVN3.8.4' }
+    triggers { upstream(upstreamProjects: 'starter project', threshold: hudson.model.Result.SUCCESS) }
+    stages{
+        stage(download code) {
+            steps{
+        {
+            git branch: 'delarative', url: 'https://github.com/venkatareddymaram6/spring-petclinic.git'
+        }
+            }
+        }
+        stage(build)
+        {
+            sh 'mvn clean package'
+        }
+    }
+}
