@@ -2,16 +2,16 @@ pipeline{
     agent { label 'JDK11-MVN3.8.4' }
     triggers { upstream(upstreamProjects: 'starter project', threshold: hudson.model.Result.SUCCESS) }
     stages{
-        stage(download code) {
+        stage('download sources') {
             steps{
-        {
-            git branch: 'delarative', url: 'https://github.com/venkatareddymaram6/spring-petclinic.git'
+            git branch: 'declarative', url: 'https://github.com/venkatareddymaram6/spring-petclinic.git'
         }
             }
-        }
-        stage(build)
-        {
-            sh 'mvn clean package'
+        stage('build') {
+        steps {
+            sh '/usr/local/apache-maven-3.8.5/bin/mvn clean package'
         }
     }
+}
+
 }
