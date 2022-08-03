@@ -22,7 +22,7 @@ pipeline{
     } 
     stage('publish test reports') {
         steps {
-            junit '**/*.xml'
+            junit '**/TEST-*.xml'
         }
     }
     stage('archieve artifacts') {
