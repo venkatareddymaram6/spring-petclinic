@@ -14,6 +14,24 @@ pipeline{
             sh '/usr/local/apache-maven-3.8.5/bin/mvn clean package'
         }
     }
+
+    stage('using env') {
+        steps {
+            echo "${env.WORKSPACE}"
+        }
+    } 
+    stage('publish test reports') {
+        steps {
+            junit '**/*.xml'
+        }
+    }
+    stage('archieve artifacts') {
+        steps {
+            
+            archiveArtifacts artifacts: '**/*.jar', followSymlinks: false
+        }
+    }
+
 }
 
 }
